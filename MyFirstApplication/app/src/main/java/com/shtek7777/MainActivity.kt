@@ -1,4 +1,4 @@
-package com.example.shtek7777
+package com.shtek7777
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

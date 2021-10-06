@@ -1,4 +1,4 @@
-package com.example.shtek7777
+package com.shtek7777
 
 import org.junit.Test
 
