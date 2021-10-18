@@ -1,6 +1,5 @@
 package com.shtek7777.myfirstapplication.fragments.contactList
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shtek7777.myfirstapplication.R
 
 interface ContactCellClicked {
-    fun contactClicked(contactId: String)
+    fun onContactClicked(callback: (String) -> Unit)
 }
 
 class ContactListAdapter (private val names: List<String>) :
@@ -26,14 +25,16 @@ class ContactListAdapter (private val names: List<String>) :
         var contactImageView: ImageView? = null
         var contactNameTextView: TextView? = null
         var contactNumberTextView: TextView? = null
-        private var contactInformation: View = itemView.findViewById(R.id.cell_body)
+        private var contactInformation: View = itemView.findViewById(R.id.llContactCellBody)
 
         init {
-            contactImageView = itemView.findViewById(R.id.contactImage)
-            contactNameTextView = itemView.findViewById(R.id.contactName)
-            contactNumberTextView = itemView.findViewById(R.id.contactNumber)
+            contactImageView = itemView.findViewById(R.id.ivContactDetailsImage)
+            contactNameTextView = itemView.findViewById(R.id.tvContactDetailsName)
+            contactNumberTextView = itemView.findViewById(R.id.tvContactNumber)
             contactInformation.setOnClickListener {
-                clickDelegate?.contactClicked(contactId = "1")
+                clickDelegate?.onContactClicked {
+                    "1"
+                }
             }
         }
     }
@@ -45,7 +46,6 @@ class ContactListAdapter (private val names: List<String>) :
         return MyViewHolder(itemView, clickHandler)
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.contactImageView?.setImageResource(R.drawable.ic_launcher_background)
         holder.contactNameTextView?.text = names[position]

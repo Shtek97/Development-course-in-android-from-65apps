@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MyFirstApplication</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="contact_list">Список контактов</string>
+    <string name="details_contact">Детали контакта</string>
     <string-array name="names">
         <item>Никита</item>
         <item>Сергей</item>

@@ -1,6 +1,5 @@
 package com.shtek7777.myfirstapplication.fragments.contactDetails
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,33 +18,41 @@ class ContactDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        activity?.title = "Детали контакта"
+        activity?.title = resources.getText(R.string.details_contact)
         contactId = arguments?.getLong(CONTACT_ID_KEY)
         _binding = FragmentContactDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.apply {
-            binding.contactImage.setImageResource(R.drawable.ic_launcher_background)
-            binding.contactName.text = "Штэк Никита Сергеевич"
-            binding.contactFirstNumber.text = "89991112233"
-            binding.contactSecondNumber.text = "89992223344"
-            binding.contactFirstMail.text = "shtek7777@gmail.com"
-            binding.contactSecondMail.text = "shtek97@mail.ru"
-            binding.description.text = "Описание"
-        }
+        contactDetailsInformation(
+            R.drawable.ic_launcher_background, "Штэк Никита Сергеевич",
+            "89991112233", "89992223344", "shtek7777@gmail.com", "shtek97@mail.ru", "Описание"
+        )
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
+    }
+
+    private fun contactDetailsInformation(
+        image: Int, name: String, firstNumber: String, secondNumber: String, firstMail: String,
+        secondMail: String, description: String
+    ) {
+        binding.apply {
+            binding.ivContactDetailsImage.setImageResource(image)
+            binding.tvContactDetailsName.text = name
+            binding.tvContactDetailsFirstNumber.text = firstNumber
+            binding.tvContactDetailsSecondNumber.text = secondNumber
+            binding.tvContactDetailsFirstMail.text = firstMail
+            binding.tvContactDetailsSecondMail.text = secondMail
+            binding.tvContactDetailsDescription.text = description
+        }
     }
 
     companion object {
-        var CONTACT_ID_KEY = "key contact"
+        const val CONTACT_ID_KEY = "key contact"
     }
 }

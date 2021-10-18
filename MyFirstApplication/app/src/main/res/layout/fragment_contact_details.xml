@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cell_body"
+        android:id="@+id/llContactCellBody"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -19,7 +19,7 @@
 
 
         <LinearLayout
-            android:id="@+id/cell_body_up"
+            android:id="@+id/llContactDetailsCellBodyUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -28,12 +28,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/contactImage"
+                android:id="@+id/ivContactDetailsImage"
                 android:layout_width="90dp"
                 android:layout_height="80dp" />
 
             <TextView
-                android:id="@+id/contactName"
+                android:id="@+id/tvContactDetailsName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -42,28 +42,28 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/contactFirstNumber"
+            android:id="@+id/tvContactDetailsFirstNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             tools:text="89991112233" />
 
         <TextView
-            android:id="@+id/contactSecondNumber"
+            android:id="@+id/tvContactDetailsSecondNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             tools:text="89992223344" />
 
         <TextView
-            android:id="@+id/contactFirstMail"
+            android:id="@+id/tvContactDetailsFirstMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             tools:text="shtek7777@gmail.com" />
 
         <TextView
-            android:id="@+id/contactSecondMail"
+            android:id="@+id/tvContactDetailsSecondMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -71,7 +71,7 @@
             tools:text="shtek97@mail.ru" />
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/tvContactDetailsDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"

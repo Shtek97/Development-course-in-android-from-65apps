@@ -21,7 +21,7 @@ class ContactListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        activity?.title = "Список контактов"
+        activity?.title = resources.getText(R.string.contact_list)
         _binding = FragmentContactListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -32,7 +32,7 @@ class ContactListFragment : Fragment() {
         contactListAdapter = ContactListAdapter(getNamesList())
 
         contactListAdapter.onClickedContact(object : ContactCellClicked {
-            override fun contactClicked(contactId: String) {
+            override fun onContactClicked(callback: (String) -> Unit) {
                 val bundle = bundleOf(
                     ContactDetailsFragment.CONTACT_ID_KEY to 1
                 )
@@ -44,13 +44,13 @@ class ContactListFragment : Fragment() {
         })
 
         binding.apply {
-            contactList.adapter = contactListAdapter
+            rvContactList.adapter = contactListAdapter
         }
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 
     private fun getNamesList(): List<String> {
