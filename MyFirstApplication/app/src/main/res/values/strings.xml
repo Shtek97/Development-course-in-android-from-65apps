@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">MyFirstApplication</string>
+    <string name="contact_list">Список контактов</string>
+    <string name="details_contact">Детали контакта</string>
+    <string-array name="names">
+        <item>Никита</item>
+        <item>Сергей</item>
+    </string-array>
+    <string-array name="numbers">
+        <item>89991112233</item>
+        <item>89992223344</item>
+    </string-array>
+    <string-array name="mails">
+        <item>shtek7777@gmail.com</item>
+        <item>shtek97@mail.ru</item>
+    </string-array>
 </resources>

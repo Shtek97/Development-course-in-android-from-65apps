@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginEnd="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llContactCellBody"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:id="@+id/llContactDetailsCellBodyUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivContactDetailsImage"
+                android:layout_width="90dp"
+                android:layout_height="80dp" />
+
+            <TextView
+                android:id="@+id/tvContactDetailsName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                tools:text="Штэк Никита Сергеевич" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvContactDetailsFirstNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="89991112233" />
+
+        <TextView
+            android:id="@+id/tvContactDetailsSecondNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="89992223344" />
+
+        <TextView
+            android:id="@+id/tvContactDetailsFirstMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="shtek7777@gmail.com" />
+
+        <TextView
+            android:id="@+id/tvContactDetailsSecondMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            tools:text="shtek97@mail.ru" />
+
+        <TextView
+            android:id="@+id/tvContactDetailsDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="Толкование и значение имени Никита. Что означает имя Никита: «победитель». Происхождение имени Никита: древнегреческое. Имя Никита произошло от древнегреческого Никетас, которое образовалось от слова «никетес». Оно переводится как «победитель»." />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
