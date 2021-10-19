@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.shtek7777.myfirstapplication.R
 import com.shtek7777.myfirstapplication.databinding.FragmentContactListBinding
+import com.shtek7777.myfirstapplication.fragments.ContactService
 import com.shtek7777.myfirstapplication.fragments.contactDetails.ContactDetailsFragment
 
 class ContactListFragment : Fragment() {
@@ -16,6 +17,8 @@ class ContactListFragment : Fragment() {
     private lateinit var contactListAdapter: ContactListAdapter
     private var _binding: FragmentContactListBinding? = null
     private val binding get() = _binding!!
+    private val dataContactInfo: ContactInfo? = null
+    private var service: ContactService? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,8 +31,9 @@ class ContactListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        service?.getContacts(this)
 
-        contactListAdapter = ContactListAdapter(getNamesList()) { id ->
+        contactListAdapter = ContactListAdapter(dataContactInfo) { id ->
             val bundle = bundleOf(
                 ContactDetailsFragment.CONTACT_ID_KEY to id
             )
@@ -44,12 +48,16 @@ class ContactListFragment : Fragment() {
         }
     }
 
+    fun setData(data: List<ContactInfo>) {
+        requireActivity().runOnUiThread {
+            dataContactInfo?.contactName = data.first().contactName
+            dataContactInfo?.contactNumber = data.first().contactNumber
+            dataContactInfo?.imageResId = data.first().imageResId
+        }
+    }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-    }
-
-    private fun getNamesList(): List<String> {
-        return this.resources.getStringArray(R.array.names).toList()
     }
 }
