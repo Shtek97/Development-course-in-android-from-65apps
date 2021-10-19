@@ -29,19 +29,15 @@ class ContactListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        contactListAdapter = ContactListAdapter(getNamesList())
-
-        contactListAdapter.onClickedContact(object : ContactCellClicked {
-            override fun onContactClicked(callback: (String) -> Unit) {
-                val bundle = bundleOf(
-                    ContactDetailsFragment.CONTACT_ID_KEY to 1
-                )
-                view.findNavController().navigate(
-                    R.id.action_contactListFragment_to_contactDetailsFragment,
-                    bundle
-                )
-            }
-        })
+        contactListAdapter = ContactListAdapter(getNamesList()) { id ->
+            val bundle = bundleOf(
+                ContactDetailsFragment.CONTACT_ID_KEY to id
+            )
+            view.findNavController().navigate(
+                R.id.action_contactListFragment_to_contactDetailsFragment,
+                bundle
+            )
+        }
 
         binding.apply {
             rvContactList.adapter = contactListAdapter

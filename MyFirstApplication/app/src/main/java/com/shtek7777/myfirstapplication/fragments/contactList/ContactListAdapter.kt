@@ -8,20 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.shtek7777.myfirstapplication.R
 
-interface ContactCellClicked {
-    fun onContactClicked(callback: (String) -> Unit)
-}
 
-class ContactListAdapter (private val names: List<String>) :
+class ContactListAdapter (private val names: List<String>, private val onContactClicked: (String) -> Unit) :
     RecyclerView.Adapter<ContactListAdapter.MyViewHolder>() {
 
-    private var clickHandler: ContactCellClicked? = null
-
-    fun onClickedContact(handler: ContactCellClicked) {
-        clickHandler = handler
-    }
-
-    class MyViewHolder(itemView: View, private val clickDelegate: ContactCellClicked?) : RecyclerView.ViewHolder(itemView) {
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var contactImageView: ImageView? = null
         var contactNameTextView: TextView? = null
         var contactNumberTextView: TextView? = null
@@ -31,11 +22,11 @@ class ContactListAdapter (private val names: List<String>) :
             contactImageView = itemView.findViewById(R.id.ivContactDetailsImage)
             contactNameTextView = itemView.findViewById(R.id.tvContactDetailsName)
             contactNumberTextView = itemView.findViewById(R.id.tvContactNumber)
-            contactInformation.setOnClickListener {
-                clickDelegate?.onContactClicked {
-                    "1"
-                }
-            }
+            contactInformation.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            onContactClicked.invoke("1")
         }
     }
 
@@ -43,7 +34,7 @@ class ContactListAdapter (private val names: List<String>) :
         val itemView =
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.cell_contact_list, parent, false)
-        return MyViewHolder(itemView, clickHandler)
+        return MyViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
