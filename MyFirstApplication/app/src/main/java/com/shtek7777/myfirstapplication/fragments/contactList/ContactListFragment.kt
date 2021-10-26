@@ -1,5 +1,6 @@
 package com.shtek7777.myfirstapplication.fragments.contactList
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.navigation.findNavController
 import com.shtek7777.myfirstapplication.R
 import com.shtek7777.myfirstapplication.databinding.FragmentContactListBinding
 import com.shtek7777.myfirstapplication.fragments.ContactService
+import com.shtek7777.myfirstapplication.fragments.IContactService
 import com.shtek7777.myfirstapplication.fragments.contactDetails.ContactDetailsFragment
 
 class ContactListFragment : Fragment() {
@@ -19,6 +21,11 @@ class ContactListFragment : Fragment() {
     private val binding get() = _binding!!
     private val dataContactInfo: ContactInfo? = null
     private var service: ContactService? = null
+
+    override fun onAttach(context: Context) {
+        service = (context as? IContactService)?.getService()
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,5 +66,10 @@ class ContactListFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    fun getContactData(){
+        val service = (context as? IContactService)?.getService()
+        service?.getContacts(this)
     }
 }

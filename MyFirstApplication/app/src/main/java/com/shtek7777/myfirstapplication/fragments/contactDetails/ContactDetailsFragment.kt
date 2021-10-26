@@ -1,5 +1,6 @@
 package com.shtek7777.myfirstapplication.fragments.contactDetails
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.shtek7777.myfirstapplication.R
 import com.shtek7777.myfirstapplication.databinding.FragmentContactDetailsBinding
 import com.shtek7777.myfirstapplication.fragments.ContactService
+import com.shtek7777.myfirstapplication.fragments.IContactService
 
 class ContactDetailsFragment : Fragment() {
 
@@ -15,6 +17,11 @@ class ContactDetailsFragment : Fragment() {
     private val binding get() = _binding!!
     private var contactId: Long? = null
     private var service: ContactService? = null
+
+    override fun onAttach(context: Context) {
+        service = (context as? IContactService)?.getService()
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +55,11 @@ class ContactDetailsFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    fun getContactData(){
+        val service = (context as? IContactService)?.getService()
+        service?.getDetailContact(this)
     }
 
     companion object {

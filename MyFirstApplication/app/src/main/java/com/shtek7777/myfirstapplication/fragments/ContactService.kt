@@ -20,7 +20,7 @@ class ContactService : Service() {
 
     fun getContacts(contactListFragment: ContactListFragment) {
         thread(start = true) {
-            Thread.sleep(1000)
+            Thread.sleep(2000)
             contactListFragment.setData(
                 listOf(
                     ContactInfo(
@@ -35,7 +35,7 @@ class ContactService : Service() {
 
     fun getDetailContact(contactDetailFragment: ContactDetailsFragment) {
         thread(start = true) {
-            Thread.sleep(1000)
+            Thread.sleep(2000)
             contactDetailFragment.setData(
                 listOf(
                     ContactDetailsInfo(
