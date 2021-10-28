@@ -10,6 +10,7 @@ import com.shtek7777.myfirstapplication.R
 import com.shtek7777.myfirstapplication.databinding.FragmentContactDetailsBinding
 import com.shtek7777.myfirstapplication.fragments.ContactService
 import com.shtek7777.myfirstapplication.fragments.IContactService
+import java.lang.ref.WeakReference
 
 class ContactDetailsFragment : Fragment() {
 
@@ -35,11 +36,11 @@ class ContactDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        service?.getDetailContact(this)
+        service?.getDetailContact(WeakReference(this))
     }
 
     fun setData(data: List<ContactDetailsInfo>) {
-        requireActivity().runOnUiThread {
+        requireView().post {
             binding.apply {
                 tvContactDetailsName.text = data.first().firstContactName
                 tvContactDetailsFirstNumber.text = data.first().firstContactNumber

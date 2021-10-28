@@ -46,6 +46,6 @@ class ContactListAdapter (private val data: ContactInfo?, private val onContactC
     }
 
     override fun getItemCount(): Int {
-        return 2
+        return 1
     }
 }

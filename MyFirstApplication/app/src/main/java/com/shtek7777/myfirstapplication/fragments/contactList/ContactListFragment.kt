@@ -13,6 +13,7 @@ import com.shtek7777.myfirstapplication.databinding.FragmentContactListBinding
 import com.shtek7777.myfirstapplication.fragments.ContactService
 import com.shtek7777.myfirstapplication.fragments.IContactService
 import com.shtek7777.myfirstapplication.fragments.contactDetails.ContactDetailsFragment
+import java.lang.ref.WeakReference
 
 class ContactListFragment : Fragment() {
 
@@ -38,7 +39,7 @@ class ContactListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        service?.getContacts(this)
+        service?.getContacts(WeakReference(this))
 
         contactListAdapter = ContactListAdapter(dataContactInfo) { id ->
             val bundle = bundleOf(
@@ -56,7 +57,7 @@ class ContactListFragment : Fragment() {
     }
 
     fun setData(data: List<ContactInfo>) {
-        requireActivity().runOnUiThread {
+        requireView().post {
             dataContactInfo?.contactName = data.first().contactName
             dataContactInfo?.contactNumber = data.first().contactNumber
             dataContactInfo?.imageResId = data.first().imageResId

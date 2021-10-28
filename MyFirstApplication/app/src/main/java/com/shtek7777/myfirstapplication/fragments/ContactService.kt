@@ -9,6 +9,7 @@ import com.shtek7777.myfirstapplication.fragments.contactDetails.ContactDetailsF
 import com.shtek7777.myfirstapplication.fragments.contactDetails.ContactDetailsInfo
 import com.shtek7777.myfirstapplication.fragments.contactList.ContactInfo
 import com.shtek7777.myfirstapplication.fragments.contactList.ContactListFragment
+import java.lang.ref.WeakReference
 import kotlin.concurrent.thread
 
 class ContactService : Service() {
@@ -16,10 +17,10 @@ class ContactService : Service() {
 
     override fun onBind(intent: Intent) = binder
 
-    fun getContacts(contactListFragment: ContactListFragment) {
+    fun getContacts(contactListFragment: WeakReference<ContactListFragment>) {
         thread(start = true) {
             Thread.sleep(sleep)
-            contactListFragment.setData(
+            contactListFragment.get()?.setData(
                 listOf(
                     ContactInfo(
                         contactName = "Shtek Nikita Sergeevich",
@@ -31,10 +32,10 @@ class ContactService : Service() {
         }
     }
 
-    fun getDetailContact(contactDetailFragment: ContactDetailsFragment) {
+    fun getDetailContact(contactDetailFragment: WeakReference<ContactDetailsFragment>) {
         thread(start = true) {
             Thread.sleep(sleep)
-            contactDetailFragment.setData(
+            contactDetailFragment.get()?.setData(
                 listOf(
                     ContactDetailsInfo(
                         firstContactName = "Shtek Nikita Sergeevich",
