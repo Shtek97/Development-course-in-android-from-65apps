@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.shtek7777.myfirstapplication.databinding.ActivityMainBinding
 import com.shtek7777.myfirstapplication.fragments.ContactService
 import com.shtek7777.myfirstapplication.fragments.IContactService
-import com.shtek7777.myfirstapplication.fragments.contactDetails.ContactDetailsFragment
-import com.shtek7777.myfirstapplication.fragments.contactList.ContactListFragment
 
 class MainActivity : AppCompatActivity(), IContactService {
     private lateinit var binding: ActivityMainBinding
@@ -23,12 +21,6 @@ class MainActivity : AppCompatActivity(), IContactService {
             val binder = service as ContactService.ContactBinder
             contactService = binder.getService()
             contactBound = true
-
-            val contactListFragment = ContactListFragment()
-            val contactDetailFragment = ContactDetailsFragment()
-
-            contactListFragment.getContactData()
-            contactDetailFragment.getContactData()
         }
 
         override fun onServiceDisconnected(className: ComponentName?) {
@@ -41,6 +33,10 @@ class MainActivity : AppCompatActivity(), IContactService {
         setContentView(R.layout.activity_main)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+
+        Intent(this, ContactService::class.java).also { intent ->
+            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -48,17 +44,12 @@ class MainActivity : AppCompatActivity(), IContactService {
         return true
     }
 
-    override fun onStart() {
-        super.onStart()
-        Intent(this, ContactService::class.java).also { intent ->
-            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+    override fun onDestroy() {
+        if (contactBound) {
+            unbindService(serviceConnection)
+            contactBound = false
         }
-    }
-
-    override fun onStop() {
-        unbindService(serviceConnection)
-        contactBound = false
-        super.onStop()
+        super.onDestroy()
     }
 
     override fun getService() = contactService

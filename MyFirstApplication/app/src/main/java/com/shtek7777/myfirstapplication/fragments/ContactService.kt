@@ -14,13 +14,11 @@ import kotlin.concurrent.thread
 class ContactService : Service() {
     private val binder = ContactBinder()
 
-    override fun onBind(intent: Intent): IBinder {
-        return binder
-    }
+    override fun onBind(intent: Intent) = binder
 
     fun getContacts(contactListFragment: ContactListFragment) {
         thread(start = true) {
-            Thread.sleep(2000)
+            Thread.sleep(sleep)
             contactListFragment.setData(
                 listOf(
                     ContactInfo(
@@ -35,7 +33,7 @@ class ContactService : Service() {
 
     fun getDetailContact(contactDetailFragment: ContactDetailsFragment) {
         thread(start = true) {
-            Thread.sleep(2000)
+            Thread.sleep(sleep)
             contactDetailFragment.setData(
                 listOf(
                     ContactDetailsInfo(
@@ -54,5 +52,9 @@ class ContactService : Service() {
 
     inner class ContactBinder : Binder() {
         fun getService(): ContactService = this@ContactService
+    }
+
+    companion object {
+        const val sleep: Long = 2000
     }
 }

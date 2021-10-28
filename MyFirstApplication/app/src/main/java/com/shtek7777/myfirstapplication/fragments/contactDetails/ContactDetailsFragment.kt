@@ -19,8 +19,8 @@ class ContactDetailsFragment : Fragment() {
     private var service: ContactService? = null
 
     override fun onAttach(context: Context) {
-        service = (context as? IContactService)?.getService()
         super.onAttach(context)
+        service = (context as? IContactService)?.getService()
     }
 
     override fun onCreateView(
@@ -57,9 +57,9 @@ class ContactDetailsFragment : Fragment() {
         super.onDestroyView()
     }
 
-    fun getContactData(){
-        val service = (context as? IContactService)?.getService()
-        service?.getDetailContact(this)
+    override fun onDetach() {
+        service = null
+        super.onDetach()
     }
 
     companion object {

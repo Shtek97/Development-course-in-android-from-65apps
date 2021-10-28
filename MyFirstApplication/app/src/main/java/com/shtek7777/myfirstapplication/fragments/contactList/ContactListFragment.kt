@@ -23,8 +23,8 @@ class ContactListFragment : Fragment() {
     private var service: ContactService? = null
 
     override fun onAttach(context: Context) {
-        service = (context as? IContactService)?.getService()
         super.onAttach(context)
+        service = (context as? IContactService)?.getService()
     }
 
     override fun onCreateView(
@@ -68,8 +68,8 @@ class ContactListFragment : Fragment() {
         super.onDestroyView()
     }
 
-    fun getContactData(){
-        val service = (context as? IContactService)?.getService()
-        service?.getContacts(this)
+    override fun onDetach() {
+        service = null
+        super.onDetach()
     }
 }
