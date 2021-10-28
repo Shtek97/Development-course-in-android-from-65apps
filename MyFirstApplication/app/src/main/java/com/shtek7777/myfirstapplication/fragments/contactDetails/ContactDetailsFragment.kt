@@ -1,5 +1,6 @@
 package com.shtek7777.myfirstapplication.fragments.contactDetails
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +8,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.shtek7777.myfirstapplication.R
 import com.shtek7777.myfirstapplication.databinding.FragmentContactDetailsBinding
+import com.shtek7777.myfirstapplication.fragments.ContactService
+import com.shtek7777.myfirstapplication.fragments.IContactService
+import java.lang.ref.WeakReference
 
 class ContactDetailsFragment : Fragment() {
 
     private var _binding: FragmentContactDetailsBinding? = null
     private val binding get() = _binding!!
     private var contactId: Long? = null
+    private var service: ContactService? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        service = (context as? IContactService)?.getService()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,10 +36,21 @@ class ContactDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        contactDetailsInformation(
-            R.drawable.ic_launcher_background, "Штэк Никита Сергеевич",
-            "89991112233", "89992223344", "shtek7777@gmail.com", "shtek97@mail.ru", "Описание"
-        )
+        service?.getDetailContact(WeakReference(this))
+    }
+
+    fun setData(data: List<ContactDetailsInfo>) {
+        requireView().post {
+            binding.apply {
+                tvContactDetailsName.text = data.first().firstContactName
+                tvContactDetailsFirstNumber.text = data.first().firstContactNumber
+                tvContactDetailsSecondNumber.text = data.first().secondContactNumber
+                tvContactDetailsFirstMail.text = data.first().firstContactMail
+                tvContactDetailsSecondMail.text = data.first().secondContactMail
+                tvContactDetailsDescription.text = data.first().description
+                ivContactDetailsImage.setImageResource(data.first().imageResId)
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -37,19 +58,9 @@ class ContactDetailsFragment : Fragment() {
         super.onDestroyView()
     }
 
-    private fun contactDetailsInformation(
-        image: Int, name: String, firstNumber: String, secondNumber: String, firstMail: String,
-        secondMail: String, description: String
-    ) {
-        binding.apply {
-            binding.ivContactDetailsImage.setImageResource(image)
-            binding.tvContactDetailsName.text = name
-            binding.tvContactDetailsFirstNumber.text = firstNumber
-            binding.tvContactDetailsSecondNumber.text = secondNumber
-            binding.tvContactDetailsFirstMail.text = firstMail
-            binding.tvContactDetailsSecondMail.text = secondMail
-            binding.tvContactDetailsDescription.text = description
-        }
+    override fun onDetach() {
+        service = null
+        super.onDetach()
     }
 
     companion object {
