@@ -9,6 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFirstApplication">
+        <receiver
+            android:name=".fragments.NotifyBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
+        <service
+            android:name=".fragments.ContactService"
+            android:enabled="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

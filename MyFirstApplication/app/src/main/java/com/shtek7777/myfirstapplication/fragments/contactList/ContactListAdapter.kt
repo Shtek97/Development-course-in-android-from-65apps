@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shtek7777.myfirstapplication.R
 
 
-class ContactListAdapter (private val names: List<String>, private val onContactClicked: (String) -> Unit) :
+class ContactListAdapter (private val data: ContactInfo?, private val onContactClicked: (String) -> Unit) :
     RecyclerView.Adapter<ContactListAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -38,10 +38,15 @@ class ContactListAdapter (private val names: List<String>, private val onContact
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.contactImageView?.setImageResource(R.drawable.ic_launcher_background)
-        holder.contactNameTextView?.text = names[position]
-        holder.contactNumberTextView?.text = "89991113322"
+        if (data != null) {
+            holder.contactImageView?.setImageResource(data.imageResId)
+            holder.contactNameTextView?.text = data.contactName
+            holder.contactNumberTextView?.text = data.contactNumber
+        }
     }
 
-    override fun getItemCount() = names.size
+    override fun getItemCount(): Int {
+        // TODO Замоканные данные
+        return 1
+    }
 }

@@ -20,7 +20,8 @@
         <ImageView
             android:id="@+id/ivContactDetailsImage"
             android:layout_width="90dp"
-            android:layout_height="80dp"/>
+            android:layout_height="80dp"
+            android:src="@drawable/ic_launcher_background"/>
 
         <LinearLayout
             android:id="@+id/llContactInformationCellRight"
@@ -36,6 +37,7 @@
                 android:id="@+id/tvContactDetailsName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Штэк Никита Сергеевич"
                 tools:text="Штэк Никита Сергеевич"/>
 
             <TextView
@@ -43,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:text="89991112233"
                 tools:text="89991112233"/>
 
         </LinearLayout>
