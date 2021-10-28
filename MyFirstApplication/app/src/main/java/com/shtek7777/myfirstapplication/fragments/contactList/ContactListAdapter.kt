@@ -46,6 +46,7 @@ class ContactListAdapter (private val data: ContactInfo?, private val onContactC
     }
 
     override fun getItemCount(): Int {
+        // TODO Замоканные данные
         return 1
     }
 }

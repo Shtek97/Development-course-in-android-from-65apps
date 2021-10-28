@@ -19,7 +19,7 @@ class ContactService : Service() {
 
     fun getContacts(contactListFragment: WeakReference<ContactListFragment>) {
         thread(start = true) {
-            Thread.sleep(sleep)
+            Thread.sleep(SLEEP_TIME)
             contactListFragment.get()?.setData(
                 listOf(
                     ContactInfo(
@@ -34,7 +34,7 @@ class ContactService : Service() {
 
     fun getDetailContact(contactDetailFragment: WeakReference<ContactDetailsFragment>) {
         thread(start = true) {
-            Thread.sleep(sleep)
+            Thread.sleep(SLEEP_TIME)
             contactDetailFragment.get()?.setData(
                 listOf(
                     ContactDetailsInfo(
@@ -56,6 +56,6 @@ class ContactService : Service() {
     }
 
     companion object {
-        const val sleep: Long = 2000
+        const val SLEEP_TIME = 2000L
     }
 }
