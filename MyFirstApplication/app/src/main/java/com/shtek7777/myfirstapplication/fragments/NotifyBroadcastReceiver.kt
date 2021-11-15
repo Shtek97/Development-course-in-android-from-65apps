@@ -23,8 +23,7 @@ class NotifyBroadcastReceiver : BroadcastReceiver() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(
-                CHANNEL_ID,
-                "Notify Birthday Channel",
+                context.getString(R.string.notify_channel_id), context.getString(R.string.notify_channel_name),
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             notificationManager.createNotificationChannel(notificationChannel)
@@ -39,9 +38,9 @@ class NotifyBroadcastReceiver : BroadcastReceiver() {
             notificationIntent,
             PendingIntent.FLAG_UPDATE_CURRENT)
 
-        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
+        val notification = NotificationCompat.Builder(context, context.getString(R.string.notify_channel_id))
             .setContentTitle(context.getString(R.string.app_name))
-            .setChannelId(CHANNEL_ID)
+            .setChannelId(context.getString(R.string.notify_channel_id))
             .setContentText(context.getString(R.string.text_notify_birthday)
                     + " "
                     + intent.getStringExtra(CONTACT_NAME))
@@ -62,7 +61,7 @@ class NotifyBroadcastReceiver : BroadcastReceiver() {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
         alarmManager?.set(
             AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
+            calendar,
             reschedulePendingIntent
         )
     }
@@ -71,6 +70,5 @@ class NotifyBroadcastReceiver : BroadcastReceiver() {
         const val CONTACT_ID = "CONTACT_ID"
         const val CONTACT_NAME = "CONTACT_NAME"
         const val FRAGMENT_ID = "FRAGMENT_ID"
-        private const val CHANNEL_ID = "NOTIFY_BIRTHDAY_CHANNEL"
     }
 }

@@ -5,4 +5,6 @@
     <string name="birthday">День Рождения</string>
     <string name="notify_birthday">Уведомлять о Дне Рождении</string>
     <string name="text_notify_birthday">Сегодня День Рождения у</string>
+    <string name="notify_channel_name">Notify Birthday Channel</string>
+    <string name="notify_channel_id">NOTIFY_BIRTHDAY_CHANNEL</string>
 </resources>

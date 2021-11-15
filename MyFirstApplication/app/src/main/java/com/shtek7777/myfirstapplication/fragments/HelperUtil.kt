@@ -2,12 +2,11 @@ package com.shtek7777.myfirstapplication.fragments
 
 import java.util.*
 
-fun nextBirthday(calendar: Calendar): Calendar {
+fun nextBirthday(calendar: Calendar) : Long {
 
     val calendarNotify = calendar as GregorianCalendar
-    var isFeb29  = false
     val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-    var currentCoDay = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
+    var currentDay = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
 
     calendarNotify[Calendar.DATE] = calendar[Calendar.DATE]
     calendarNotify[Calendar.MONTH] = calendar[Calendar.MONTH]
@@ -16,36 +15,32 @@ fun nextBirthday(calendar: Calendar): Calendar {
     calendarNotify[Calendar.MINUTE] = 0
     calendarNotify[Calendar.SECOND] = 0
 
-    var calendarCoDay = calendar.get(Calendar.DAY_OF_YEAR)
+    var calendarDay = calendar.get(Calendar.DAY_OF_YEAR)
 
-    if (calendar.get(Calendar.MONTH) == Calendar.FEBRUARY
-        && calendar.get(Calendar.DATE) == 29) {
-        isFeb29 = true
+    if (calendar.isLeapYear(calendar.get(Calendar.YEAR)) || isFebruary29(calendar)) {
+        calendarDay -= 1
     }
 
-    if ((calendar.get(Calendar.MONTH) >= Calendar.MARCH
-                && calendar.isLeapYear(calendar.get(Calendar.YEAR))) || isFeb29) {
-        calendarCoDay -= 1
+    if (calendar.isLeapYear(currentYear) || isFebruary29(calendar)) {
+        currentDay -= 1
     }
 
-    if ((Calendar.getInstance().get(Calendar.MONTH) >= Calendar.MARCH
-                && calendar.isLeapYear(currentYear))
-        || (Calendar.getInstance().get(Calendar.MONTH) == Calendar.FEBRUARY
-                && Calendar.getInstance().get(Calendar.DATE) == 29)) {
-        currentCoDay -= 1
-    }
-
-    if (currentCoDay >= calendarCoDay) {
-        if (!calendar.isLeapYear(currentYear + 1) && isFeb29) {
-            calendarNotify[Calendar.DATE] = 28
+    if (currentDay >= calendarDay) {
+        if (!calendar.isLeapYear(currentYear + 1) && isFebruary29(calendar)) {
+            calendarNotify[Calendar.DATE] = 29
+            calendarNotify[Calendar.YEAR] = currentYear + 5
         }
-        calendarNotify[Calendar.YEAR] = currentYear + 1
     } else {
-        if (!calendar.isLeapYear(currentYear) && isFeb29) {
-            calendarNotify[Calendar.DATE] = 28
+        if (!calendar.isLeapYear(currentYear) && isFebruary29(calendar)) {
+            calendarNotify[Calendar.DATE] = 29
+            calendarNotify[Calendar.YEAR] = currentYear + 4
         }
-        calendarNotify[Calendar.YEAR] = currentYear
     }
 
-    return calendarNotify
+    return calendarNotify.timeInMillis
+}
+
+fun isFebruary29(calendar: Calendar) : Boolean {
+    return (calendar.get(Calendar.MONTH) == Calendar.FEBRUARY
+            && calendar.get(Calendar.DATE) == 29)
 }

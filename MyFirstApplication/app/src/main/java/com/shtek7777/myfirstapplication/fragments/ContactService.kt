@@ -45,7 +45,7 @@ class ContactService : Service() {
                         secondContactMail = "shtek7777@gmail.com",
                         description = "Описание",
                         imageResId = R.drawable.ic_launcher_background,
-                        birthday = GregorianCalendar(2008, Calendar.NOVEMBER, 14,0,0,0)
+                        birthday = GregorianCalendar(2008, Calendar.NOVEMBER, 15,0,0,0)
 
                     )
                 )

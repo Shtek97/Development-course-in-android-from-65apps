@@ -27,8 +27,6 @@ class ContactDetailsFragment : Fragment() {
     private var contactName: String? = null
     private var contactBirthday: Calendar? = null
     private var service: ContactService? = null
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
-    private var switchAlarm: Switch? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -48,7 +46,6 @@ class ContactDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         service?.getDetailContact(WeakReference(this))
-        switchAlarm = requireView().findViewById(R.id.contactDetailsSwitchBirthday)
 
         isAlarmSet()
         binding.contactDetailsSwitchBirthday.setOnClickListener {
@@ -99,7 +96,7 @@ class ContactDetailsFragment : Fragment() {
         intent.putExtra(NotifyBroadcastReceiver.CONTACT_NAME, contactName)
 
         val alarmIntent =
-            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            contactId?.let { PendingIntent.getBroadcast(context, it.toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT) }
 
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
         val timeBeforeBirthdayInMills: Long = contactBirthday!!.timeInMillis
@@ -114,7 +111,7 @@ class ContactDetailsFragment : Fragment() {
     fun stopNotify() {
         val intent = Intent(context, NotifyBroadcastReceiver::class.java)
         val alarmIntent =
-            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            contactId?.let { PendingIntent.getBroadcast(context, it.toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT) }
         val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as? AlarmManager
         alarmManager?.cancel(alarmIntent)
     }
@@ -123,7 +120,7 @@ class ContactDetailsFragment : Fragment() {
     fun isAlarmSet(): Boolean {
         val intent = Intent(context, NotifyBroadcastReceiver::class.java)
         val alarmIntent =
-            PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            contactId?.let { PendingIntent.getBroadcast(context, it.toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT) }
         return alarmIntent != null
     }
 

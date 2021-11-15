@@ -12,7 +12,7 @@
         <receiver
             android:name=".fragments.NotifyBroadcastReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
         </receiver>
         <service
             android:name=".fragments.ContactService"
