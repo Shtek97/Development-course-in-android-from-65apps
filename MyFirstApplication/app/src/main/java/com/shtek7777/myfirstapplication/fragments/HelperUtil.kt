@@ -1,11 +1,15 @@
 package com.shtek7777.myfirstapplication.fragments
 
-import java.util.*
+import android.icu.util.Calendar
+import android.icu.util.GregorianCalendar
+import android.os.Build
+import androidx.annotation.RequiresApi
 
-fun nextBirthday(calendar: Calendar) : Long {
+@RequiresApi(Build.VERSION_CODES.N)
+fun calendarBirthday(calendar: Calendar): Long {
 
     val calendarNotify = calendar as GregorianCalendar
-    val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+    var currentYear = Calendar.getInstance().get(Calendar.YEAR)
     var currentDay = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
 
     calendarNotify[Calendar.DATE] = calendar[Calendar.DATE]
@@ -25,22 +29,15 @@ fun nextBirthday(calendar: Calendar) : Long {
         currentDay -= 1
     }
 
-    if (currentDay >= calendarDay) {
-        if (!calendar.isLeapYear(currentYear + 1) && isFebruary29(calendar)) {
-            calendarNotify[Calendar.DATE] = 29
-            calendarNotify[Calendar.YEAR] = currentYear + 5
-        }
-    } else {
-        if (!calendar.isLeapYear(currentYear) && isFebruary29(calendar)) {
-            calendarNotify[Calendar.DATE] = 29
-            calendarNotify[Calendar.YEAR] = currentYear + 4
-        }
+    if (currentDay >= calendarDay) ++currentYear
+    if (!calendar.isLeapYear(currentYear) && isFebruary29(calendar)) {
+        calendarNotify[Calendar.DATE] = 29
+        calendarNotify[Calendar.YEAR] = currentYear + 4
     }
 
     return calendarNotify.timeInMillis
 }
 
-fun isFebruary29(calendar: Calendar) : Boolean {
-    return (calendar.get(Calendar.MONTH) == Calendar.FEBRUARY
-            && calendar.get(Calendar.DATE) == 29)
-}
+@RequiresApi(Build.VERSION_CODES.N)
+fun isFebruary29(calendar: Calendar) = (calendar.get(Calendar.MONTH) == Calendar.FEBRUARY
+        && calendar.get(Calendar.DATE) == 29)

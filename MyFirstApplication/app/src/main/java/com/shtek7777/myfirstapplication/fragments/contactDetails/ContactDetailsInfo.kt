@@ -1,6 +1,6 @@
 package com.shtek7777.myfirstapplication.fragments.contactDetails
 
-import java.util.*
+import android.icu.util.GregorianCalendar
 
 data class ContactDetailsInfo(
     val firstContactName: String,
@@ -10,5 +10,5 @@ data class ContactDetailsInfo(
     val secondContactMail: String,
     val description: String,
     val imageResId: Int,
-    val birthday: Calendar
+    val birthday: GregorianCalendar
 )
