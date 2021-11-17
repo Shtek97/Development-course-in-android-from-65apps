@@ -7,5 +7,5 @@
     <string name="text_notify_birthday">Сегодня День Рождения у</string>
     <string name="notify_channel_name">Notify Birthday Channel</string>
     <string name="notify_channel_id">NOTIFY_BIRTHDAY_CHANNEL</string>
-    <string name="point">.</string>
+    <string name="date_birthday">%1$s.%2$s.%3$s.</string>
 </resources>

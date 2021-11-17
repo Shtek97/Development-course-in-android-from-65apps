@@ -5,7 +5,6 @@ import android.icu.util.GregorianCalendar
 import android.os.Build
 import androidx.annotation.RequiresApi
 
-@RequiresApi(Build.VERSION_CODES.N)
 fun calendarBirthday(calendar: Calendar): Long {
 
     val calendarNotify = calendar as GregorianCalendar
@@ -21,7 +20,7 @@ fun calendarBirthday(calendar: Calendar): Long {
 
     var calendarDay = calendar.get(Calendar.DAY_OF_YEAR)
 
-    if (calendar.isLeapYear(calendar.get(Calendar.YEAR)) || isFebruary29(calendar)) {
+    if (isFebruary29(calendar)) {
         calendarDay -= 1
     }
 
@@ -30,7 +29,7 @@ fun calendarBirthday(calendar: Calendar): Long {
     }
 
     if (currentDay >= calendarDay) ++currentYear
-    if (!calendar.isLeapYear(currentYear) && isFebruary29(calendar)) {
+    if (!calendar.isLeapYear(currentYear) && !calendar.isLeapYear(currentYear + 4) && isFebruary29(calendar)) {
         calendarNotify[Calendar.DATE] = 29
         calendarNotify[Calendar.YEAR] = currentYear + 4
     }
@@ -38,6 +37,5 @@ fun calendarBirthday(calendar: Calendar): Long {
     return calendarNotify.timeInMillis
 }
 
-@RequiresApi(Build.VERSION_CODES.N)
 fun isFebruary29(calendar: Calendar) = (calendar.get(Calendar.MONTH) == Calendar.FEBRUARY
         && calendar.get(Calendar.DATE) == 29)

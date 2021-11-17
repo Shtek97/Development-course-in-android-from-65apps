@@ -44,7 +44,6 @@ class ContactDetailsFragment : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         service?.getDetailContact(WeakReference(this))
@@ -59,8 +58,7 @@ class ContactDetailsFragment : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "StringFormatMatches")
     fun setData(data: List<ContactDetailsInfo>) {
         requireView().post {
             binding.apply {
@@ -72,11 +70,7 @@ class ContactDetailsFragment : Fragment() {
                     tvContactDetailsSecondMail.text = secondContactMail
                     tvContactDetailsDescription.text = description
                     ivContactDetailsImage.setImageResource(imageResId)
-                    tvContactDetailsBirthday.text =
-                        birthday.get(Calendar.DATE)
-                            .toString() + getString(R.string.point) + birthday.get(Calendar.MONTH)
-                            .toString() + getString(R.string.point) + birthday.get(Calendar.YEAR)
-                            .toString()
+                    tvContactDetailsBirthday.text = getString(R.string.date_birthday,  birthday.get(Calendar.DATE),  birthday.get(Calendar.MONTH),  birthday.get(Calendar.YEAR))
 
                     contactName = data.first().firstContactName
                     contactBirthday = data.first().birthday

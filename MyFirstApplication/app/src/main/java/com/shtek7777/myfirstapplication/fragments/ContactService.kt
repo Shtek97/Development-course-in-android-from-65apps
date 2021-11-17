@@ -35,7 +35,6 @@ class ContactService : Service() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     fun getDetailContact(contactDetailFragment: WeakReference<ContactDetailsFragment>) {
         thread(start = true) {
             Thread.sleep(SLEEP_TIME)

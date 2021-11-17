@@ -16,7 +16,6 @@ import com.shtek7777.myfirstapplication.MainActivity
 import com.shtek7777.myfirstapplication.R
 
 class NotifyBroadcastReceiver : BroadcastReceiver() {
-    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun onReceive(context: Context, intent: Intent) {
 
