@@ -2,8 +2,6 @@ package com.shtek7777.myfirstapplication.fragments
 
 import android.icu.util.Calendar
 import android.icu.util.GregorianCalendar
-import android.os.Build
-import androidx.annotation.RequiresApi
 
 fun calendarBirthday(calendar: Calendar): Long {
 
@@ -29,9 +27,12 @@ fun calendarBirthday(calendar: Calendar): Long {
     }
 
     if (currentDay >= calendarDay) ++currentYear
-    if (!calendar.isLeapYear(currentYear) && !calendar.isLeapYear(currentYear + 4) && isFebruary29(calendar)) {
+    if (isFebruary29(calendar)) {
+        while(!calendar.isLeapYear(currentYear) ){
+            ++currentYear
+        }
         calendarNotify[Calendar.DATE] = 29
-        calendarNotify[Calendar.YEAR] = currentYear + 4
+        calendarNotify[Calendar.YEAR] = currentYear
     }
 
     return calendarNotify.timeInMillis

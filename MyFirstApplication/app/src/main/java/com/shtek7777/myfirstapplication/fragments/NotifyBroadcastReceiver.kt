@@ -10,7 +10,6 @@ import android.content.Context
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.shtek7777.myfirstapplication.MainActivity
 import com.shtek7777.myfirstapplication.R

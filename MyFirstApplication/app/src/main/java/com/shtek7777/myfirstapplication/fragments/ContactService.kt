@@ -5,8 +5,6 @@ import android.content.Intent
 import android.icu.util.Calendar
 import android.icu.util.GregorianCalendar
 import android.os.Binder
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.shtek7777.myfirstapplication.R
 import com.shtek7777.myfirstapplication.fragments.contactDetails.ContactDetailsFragment
 import com.shtek7777.myfirstapplication.fragments.contactDetails.ContactDetailsInfo

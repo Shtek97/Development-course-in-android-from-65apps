@@ -6,12 +6,10 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.icu.util.Calendar
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.shtek7777.myfirstapplication.R
 import com.shtek7777.myfirstapplication.databinding.FragmentContactDetailsBinding
@@ -89,7 +87,6 @@ class ContactDetailsFragment : Fragment() {
         super.onDetach()
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("UnspecifiedImmutableFlag")
     fun scheduleNotify() {
         val intent = Intent(context, NotifyBroadcastReceiver::class.java)
@@ -108,7 +105,7 @@ class ContactDetailsFragment : Fragment() {
             }
 
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
-        val timeBeforeBirthdayInMills: Long = contactBirthday!!.timeInMillis
+        val timeBeforeBirthdayInMills: Long = contactBirthday?.timeInMillis ?: 0
         alarmManager?.set(
             AlarmManager.RTC_WAKEUP,
             timeBeforeBirthdayInMills,
