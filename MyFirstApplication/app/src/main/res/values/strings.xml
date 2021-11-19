@@ -2,16 +2,10 @@
     <string name="app_name">MyFirstApplication</string>
     <string name="contact_list">Список контактов</string>
     <string name="details_contact">Детали контакта</string>
-    <string-array name="names">
-        <item>Никита</item>
-        <item>Сергей</item>
-    </string-array>
-    <string-array name="numbers">
-        <item>89991112233</item>
-        <item>89992223344</item>
-    </string-array>
-    <string-array name="mails">
-        <item>shtek7777@gmail.com</item>
-        <item>shtek97@mail.ru</item>
-    </string-array>
+    <string name="birthday">День Рождения</string>
+    <string name="notify_birthday">Уведомлять о Дне Рождении</string>
+    <string name="text_notify_birthday">Сегодня День Рождения у</string>
+    <string name="notify_channel_name">Notify Birthday Channel</string>
+    <string name="notify_channel_id">NOTIFY_BIRTHDAY_CHANNEL</string>
+    <string name="date_birthday">%1$s.%2$s.%3$s.</string>
 </resources>

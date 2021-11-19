@@ -2,8 +2,9 @@ package com.shtek7777.myfirstapplication.fragments
 
 import android.app.Service
 import android.content.Intent
+import android.icu.util.Calendar
+import android.icu.util.GregorianCalendar
 import android.os.Binder
-import android.os.IBinder
 import com.shtek7777.myfirstapplication.R
 import com.shtek7777.myfirstapplication.fragments.contactDetails.ContactDetailsFragment
 import com.shtek7777.myfirstapplication.fragments.contactDetails.ContactDetailsInfo
@@ -44,7 +45,9 @@ class ContactService : Service() {
                         firstContactMail = "shtek97@mail.ru",
                         secondContactMail = "shtek7777@gmail.com",
                         description = "Описание",
-                        imageResId = R.drawable.ic_launcher_background
+                        imageResId = R.drawable.ic_launcher_background,
+                        birthday = GregorianCalendar(2008, Calendar.NOVEMBER, 15, 0, 0, 0)
+
                     )
                 )
             )

@@ -78,6 +78,24 @@
             app:layout_constraintRight_toRightOf="parent"
             tools:text="Толкование и значение имени Никита. Что означает имя Никита: «победитель». Происхождение имени Никита: древнегреческое. Имя Никита произошло от древнегреческого Никетас, которое образовалось от слова «никетес». Оно переводится как «победитель»." />
 
+        <TextView
+            android:id="@+id/tvContactDetailsBirthday"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:text="@string/birthday"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Switch
+            android:id="@+id/contactDetailsSwitchBirthday"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:text="@string/notify_birthday"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvContactDetailsBirthday"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

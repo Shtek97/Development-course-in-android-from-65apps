@@ -1,6 +1,11 @@
 package com.shtek7777.myfirstapplication.fragments.contactDetails
 
+import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +15,7 @@ import com.shtek7777.myfirstapplication.R
 import com.shtek7777.myfirstapplication.databinding.FragmentContactDetailsBinding
 import com.shtek7777.myfirstapplication.fragments.ContactService
 import com.shtek7777.myfirstapplication.fragments.IContactService
+import com.shtek7777.myfirstapplication.fragments.NotifyBroadcastReceiver
 import java.lang.ref.WeakReference
 
 class ContactDetailsFragment : Fragment() {
@@ -17,6 +23,8 @@ class ContactDetailsFragment : Fragment() {
     private var _binding: FragmentContactDetailsBinding? = null
     private val binding get() = _binding!!
     private var contactId: Long? = null
+    private var contactName: String? = null
+    private var contactBirthday: Calendar? = null
     private var service: ContactService? = null
 
     override fun onAttach(context: Context) {
@@ -37,18 +45,34 @@ class ContactDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         service?.getDetailContact(WeakReference(this))
+
+        isAlarmSet()
+        binding.contactDetailsSwitchBirthday.setOnClickListener {
+            if (binding.contactDetailsSwitchBirthday.isChecked) {
+                scheduleNotify()
+            } else {
+                stopNotify()
+            }
+        }
     }
 
+    @SuppressLint("SetTextI18n", "StringFormatMatches")
     fun setData(data: List<ContactDetailsInfo>) {
         requireView().post {
             binding.apply {
-                tvContactDetailsName.text = data.first().firstContactName
-                tvContactDetailsFirstNumber.text = data.first().firstContactNumber
-                tvContactDetailsSecondNumber.text = data.first().secondContactNumber
-                tvContactDetailsFirstMail.text = data.first().firstContactMail
-                tvContactDetailsSecondMail.text = data.first().secondContactMail
-                tvContactDetailsDescription.text = data.first().description
-                ivContactDetailsImage.setImageResource(data.first().imageResId)
+                with(data.first()) {
+                    tvContactDetailsName.text = firstContactName
+                    tvContactDetailsFirstNumber.text = firstContactNumber
+                    tvContactDetailsSecondNumber.text = secondContactNumber
+                    tvContactDetailsFirstMail.text = firstContactMail
+                    tvContactDetailsSecondMail.text = secondContactMail
+                    tvContactDetailsDescription.text = description
+                    ivContactDetailsImage.setImageResource(imageResId)
+                    tvContactDetailsBirthday.text = getString(R.string.date_birthday,  birthday.get(Calendar.DATE),  birthday.get(Calendar.MONTH),  birthday.get(Calendar.YEAR))
+
+                    contactName = data.first().firstContactName
+                    contactBirthday = data.first().birthday
+                }
             }
         }
     }
@@ -61,6 +85,63 @@ class ContactDetailsFragment : Fragment() {
     override fun onDetach() {
         service = null
         super.onDetach()
+    }
+
+    @SuppressLint("UnspecifiedImmutableFlag")
+    fun scheduleNotify() {
+        val intent = Intent(context, NotifyBroadcastReceiver::class.java)
+
+        intent.putExtra(NotifyBroadcastReceiver.CONTACT_ID, 0)
+        intent.putExtra(NotifyBroadcastReceiver.CONTACT_NAME, contactName)
+
+        val alarmIntent =
+            contactId?.let {
+                PendingIntent.getBroadcast(
+                    context,
+                    it.toInt(),
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            }
+
+        val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+        val timeBeforeBirthdayInMills: Long = contactBirthday?.timeInMillis ?: 0
+        alarmManager?.set(
+            AlarmManager.RTC_WAKEUP,
+            timeBeforeBirthdayInMills,
+            alarmIntent
+        )
+    }
+
+    @SuppressLint("UnspecifiedImmutableFlag")
+    fun stopNotify() {
+        val intent = Intent(context, NotifyBroadcastReceiver::class.java)
+        val alarmIntent =
+            contactId?.let {
+                PendingIntent.getBroadcast(
+                    context,
+                    it.toInt(),
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            }
+        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+        alarmManager?.cancel(alarmIntent)
+    }
+
+    @SuppressLint("UnspecifiedImmutableFlag")
+    fun isAlarmSet(): Boolean {
+        val intent = Intent(context, NotifyBroadcastReceiver::class.java)
+        val alarmIntent =
+            contactId?.let {
+                PendingIntent.getBroadcast(
+                    context,
+                    it.toInt(),
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+            }
+        return alarmIntent != null
     }
 
     companion object {
